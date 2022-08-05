@@ -1,0 +1,98 @@
+openapi: 3.0.0
+servers:
+  - url: https://easyhour.app/easyhour/api/v2
+    description: Production server (uses live data)
+  - url: https://dev.easyhour.app/easyhour/api/v2
+    description: Sandbox server (uses test data)
+info:
+  description: EasyHour public APIs
+  version: "1.0.0"
+  title: EasyHour public APIs
+  contact:
+    email: support@easyhour.app
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+paths:
+  /report.json:
+    get:
+      summary: Get entities in JSON format
+      operationId: jsonReport
+      parameters:
+        - in: query
+          name: reportTypes
+          description: A list of report types
+          required: false
+          schema:
+            type: string
+            enum:
+              - Worklogs
+              - TaskEstimates
+              - Clocks
+              - Overtime
+              - Bookings
+              - Leaves
+              - SmartWorkings
+              - Trips
+              - Activities
+              - Timers
+        - in: query
+          name: startDate
+          description: The start date (yyyy-mm-dd)
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: endDate
+          description: The end date (yyyy-mm-dd)
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Get report entries matching given criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReportItem'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  schemas:
+    ReportItem:
+      type: object
+      required:
+        - id
+        - data
+      properties:
+        id:
+          type: integer
+          example: 12345
+        data:
+          type: string
+          format: date
+          example: '2016-08-29'
+        cliente:
+          $ref: '#/components/schemas/Client'
+    Client:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          example: 12345
+        name:
+          type: string
+          example: ACME Corporation
+security:
+  - ApiKeyAuth: []
+
