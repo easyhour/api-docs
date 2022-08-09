@@ -79,20 +79,80 @@ components:
           type: string
           format: date
           example: '2016-08-29'
-        cliente:
-          $ref: '#/components/schemas/Client'
-    Client:
+        dataFine:
+          type: string
+          format: date
+        tipo: 
+          type: string
+          description: "Type of event, one of"
+          enum:
+            - Ferie
+            - Permesso
+            - Malattia 
+            - Attivita
+            - Trasferta
+            - Worklog
+            - Prenotazione
+        codiceCliente: 
+          type: string
+        nomeCliente: 
+          type: string
+        loginDipendente: 
+          type: string
+        nomeDipendente: 
+          type: string
+        durata: 
+          type: integer
+          format: int32
+          description: "Event duration (in minutes) taking into account user's and company's shifts"
+        duration: 
+          type: string
+          description: "Event duration (in duration format) taking into account user's and company's shifts"
+          example: 'PT4H'
+        descrizione: 
+          type: string
+        oraInizio: 
+          type: string
+          format: nullable
+          example: '09:00'
+        oraFine: 
+          type: string
+          format: nullable
+          example: '13:00'
+        user: 
+          $ref: '#/components/schemas/User'
+        userId: 
+          type: integer
+          format: int32
+        email: 
+          type: string
+          format: nullable
+          description: "Guest e-mail (for coworkings)"
+        phone: 
+          type: string
+          format: nullable
+          description: "Guest phone (for coworkings)"
+    User:
       type: object
       required:
         - id
-        - name
       properties:
         id:
           type: integer
-          example: 12345
-        name:
+        login:
           type: string
-          example: ACME Corporation
+        firstName:
+          type: string
+        lastName:
+          type: string
+        fullName:
+          type: string
+        email:
+          type: string
+        activated:
+          type: boolean
+        langKey:
+          type: string
+          example: "it"
 security:
   - ApiKeyAuth: []
-
