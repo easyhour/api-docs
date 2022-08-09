@@ -18,6 +18,8 @@ paths:
     get:
       summary: Get report in JSON format
       operationId: jsonReport
+      tags: 
+        - Reports
       parameters:
         - in: query
           name: reportTypes
@@ -63,6 +65,8 @@ paths:
     get:
       summary: Get report in XLSX format
       operationId: xlsxReport
+      tags: 
+        - Reports
       parameters:
         - in: query
           name: reportTypes
