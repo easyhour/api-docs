@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://easyhour.app/easyhour/api/v2
     description: Production server (uses live data)
-  - url: https://dev.easyhour.app/easyhour/api/v2
-    description: Sandbox server (uses test data)
+#  - url: https://dev.easyhour.app/easyhour/api/v2
+#    description: Sandbox server (uses test data)
 info:
   description: EasyHour public APIs
   version: "1.0.0"
