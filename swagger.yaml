@@ -61,6 +61,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ReportItem'
+  /users.json:
+    get:
+      summary: Get user list in JSON format
+      operationId: jsonUsers
+      tags: 
+        - Users
+      parameters:
+        - in: query
+          name: onlyActive
+          description: True to get only active users, false to get all of them
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Get the list of company employees (users)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserItem'
   /report.xlsx:
     get:
       summary: Get report in XLSX format
@@ -223,5 +245,63 @@ components:
         langKey:
           type: string
           example: "it"
+    UserItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12345
+        email:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        active:
+          type: boolean
+        lang:
+          type: string
+          example: "it"
+        assignment:
+          type: string
+        department:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        dateOfHire:
+          type: string
+          format: date
+        workShifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkShiftItem'
+    WorkShiftItem:
+      type: object
+      properties:
+        dayOfWeek:
+          type: integer
+        workingDay:
+          type: boolean
+        t1Start:
+          type: integer
+          description: Start of work shift 1 in seconds from midnight, e.g. 32400 -> 9:00
+          example: 32400
+        t1Finish:
+          type: integer
+          description: End of work shift 1 in seconds from midnight, e.g. 46800 -> 13:00
+          example: 46800
+        t2Start:
+          type: integer
+        t2Finish:
+          type: integer
+        t3Start:
+          type: integer
+        t3Finish:
+          type: integer
+        t4Start:
+          type: integer
+        t4Finish:
+          type: integer
 security:
   - ApiKeyAuth: []
