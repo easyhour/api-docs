@@ -52,6 +52,16 @@ paths:
           schema:
             type: string
             format: date
+        - in: query
+          name: states
+          description: A list of approval states (only applicable for Leaves, Smartworkings and Trips)
+          required: false
+          schema:
+            type: string
+            enum:
+              - approved
+              - refused
+              - pending
       responses:
         '200':
           description: Get report entries matching given criteria
@@ -121,6 +131,16 @@ paths:
           schema:
             type: string
             format: date
+        - in: query
+          name: states
+          description: A list of approval states (only applicable for Leaves, Smartworkings and Trips)
+          required: false
+          schema:
+            type: string
+            enum:
+              - approved
+              - refused
+              - pending            
       responses:
         '200':
           description: Get report entries matching given criteria
